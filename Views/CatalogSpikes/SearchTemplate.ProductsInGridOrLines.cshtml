@@ -1,0 +1,28 @@
+﻿@model ProductsModel
+
+<div id="nopAjaxFiltersNoProductsDialog" title="@T("Spikes.NopAjaxFilters.Client.Common.NoResultsFoundTitle")">
+    <p>@T("Spikes.NopAjaxFilters.Client.Common.NoResultsFoundMessage")</p>
+</div>
+
+@if (Model.Products.Any())
+{
+    @await Html.PartialAsync("_AjaxFIlters.ProductsInGridOrLines", Model)
+}
+
+@Html.Hidden("specificationFilterModelSpikesJson", Model.SpecificationFilterModelSpikesJson)
+@Html.Hidden("attributeFilterModelSpikesJson", Model.AttributeFilterModelSpikesJson)
+@Html.Hidden("categoryFilterModelSpikesJson", Model.CategoryFilterModelSpikesJson)
+@Html.Hidden("manufacturerFilterModelSpikesJson", Model.ManufacturerFilterModelSpikesJson)
+@Html.Hidden("vendorFilterModelSpikesJson", Model.VendorFilterModelSpikesJson)
+@Html.Hidden("ratingFilterModelSpikesJson", Model.RatingFilterModelSpikesJson)
+@Html.Hidden("onSaleFilterModelSpikesJson", Model.OnSaleFilterModelSpikesJson)
+@Html.Hidden("inStockFilterModelSpikesJson", Model.InStockFilterModelSpikesJson)
+
+@Html.Hidden("urlHashQuery", Model.HashQuery)
+@Html.Hidden("currentPageSizeJson", Model.CurrentPageSizeJson)
+@Html.Hidden("currentViewModeJson", Model.CurrentViewModeJson)
+@Html.Hidden("currentOrderByJson", Model.CurrentOrderByJson)
+@Html.Hidden("currentPageNumberJson", Model.CurrentPageNumberJson)
+@Html.Hidden("priceRangeFromJson", Model.PriceRangeFromJson)
+@Html.Hidden("priceRangeToJson", Model.PriceRangeToJson)
+@Html.Hidden("totalCount", Model.TotalCount)

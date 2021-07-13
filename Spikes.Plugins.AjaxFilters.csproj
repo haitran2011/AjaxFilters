@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+	<OutputPath>..\..\Presentation\Nop.Web\Plugins\SevenSpikes.Nop.Plugins.AjaxFilters</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Domain\**" />
+    <Content Remove="Domain\**" />
+    <EmbeddedResource Remove="Domain\**" />
+    <None Remove="Domain\**" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\SevenSpikes.Nop.Core\SevenSpikes.Nop.Core.csproj" />
+    <ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\Presentation\Nop.Web\Nop.Web.csproj" />
+    <ProjectReference Include="..\..\Presentation\SevenSpikes.Nop.Framework\SevenSpikes.Nop.Framework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Factories\" />
+    <Folder Include="Areas\Admin\Infrastructure\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Admin\Views\NopAjaxFiltersAdmin\Settings.cshtml" />
+    <None Include="Areas\Admin\Views\NopAjaxFiltersAdmin\_Settings.Availability.cshtml" />
+    <None Include="Areas\Admin\Views\NopAjaxFiltersAdmin\_Settings.General.cshtml" />
+    <None Include="Areas\Admin\Views\NopAjaxFiltersAdmin\_Settings.Integration.cshtml" />
+    <None Include="Areas\Admin\Views\NopAjaxFiltersAdmin\_Settings.ProductAttributes.cshtml" />
+    <None Include="Areas\Admin\Views\NopAjaxFiltersAdmin\_Settings.Selectors.cshtml" />
+    <None Include="Areas\Admin\Views\NopAjaxFiltersAdmin\_Settings.SpecificationAttributeSliders.cshtml" />
+    <None Include="Areas\Admin\Views\_ViewImports.cshtml" />
+    <None Include="Views\AttributeFilter.cshtml" />
+    <None Include="Views\Catalog7Spikes\CategoryTemplate.ProductsInGridOrLines.cshtml" />
+    <None Include="Views\Catalog7Spikes\ManufacturerTemplate.ProductsInGridOrLines.cshtml" />
+    <None Include="Views\Catalog7Spikes\ProductTagTemplate.ProductsInGridOrLines.cshtml" />
+    <None Include="Views\Catalog7Spikes\SearchTemplate.ProductsInGridOrLines.cshtml" />
+    <None Include="Views\Catalog7Spikes\VendorTemplate.ProductsInGridOrLines.cshtml" />
+    <None Include="Views\Catalog7Spikes\_AjaxFIlters.ProductsInGridOrLines.cshtml" />
+    <None Include="Views\CategoryFilter.cshtml" />
+    <None Include="Views\Components\NopAjaxFilters\NopFilters.cshtml" />
+    <None Include="Views\InStockFilter.cshtml" />
+    <None Include="Views\ManufacturerFilter.cshtml" />
+    <None Include="Views\OnSaleFilter.cshtml" />
+    <None Include="Views\PriceRangeFilter.cshtml" />
+    <None Include="Views\RatingFilter.cshtml" />
+    <None Include="Views\SpecificationFilter.cshtml" />
+    <None Include="Views\VendorFilter.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+  </ItemGroup>
+
+   <!-- This target execute after "Build" target -->
+  <Target Name="NopTarget" AfterTargets="Build">
+    <!-- Delete unnecessary libraries from plugins path -->
+    <MSBuild Projects="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="NopClear" />
+  </Target>
+</Project>

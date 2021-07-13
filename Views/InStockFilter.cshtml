@@ -1,0 +1,46 @@
+﻿@model InStockFilterModelSpikes
+
+@inject NopAjaxFiltersSettings nopAjaxFiltersSettings
+
+@{
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Plugins/Spikes.Nop.Plugins.AjaxFilters/Scripts/InStockFilter.min.js");
+
+    bool isUiModeUseCheckboxes = nopAjaxFiltersSettings.FiltersUIMode == FiltersUIMode.UseCheckboxes;
+    string filtersPanelClass = isUiModeUseCheckboxes ? "filtersCheckboxPanel" : "filtersDropDownPanel";
+
+    string toggleStateClass = "toggleControl";
+    string toggleStateStyles = string.Empty;
+
+    if (nopAjaxFiltersSettings.CloseInStockFilterBox)
+    {
+        toggleStateClass = "toggleControl closed";
+        toggleStateStyles = "display: none;";
+    }
+}
+
+<div class="block filter-block inStockFilterPanelSpikes">
+    <div class="title">
+        <a class="@toggleStateClass">@T("Spikes.NopAjaxFilters.Public.InStock")</a>
+        <a class="clearFilterOptions">@T("Spikes.NopAjaxFilters.Client.Common.Clear")</a>
+    </div>
+    <div class="filtersGroupPanel @filtersPanelClass" style="@toggleStateStyles">
+        @if (isUiModeUseCheckboxes)
+        {
+            var inStockId = string.Format("in-stock-filter-{0}", Model.Id);
+
+            <ul class="checkbox-list">
+                <li class="checkbox-item">
+                    <input data-option-ids="@Model.Id" type="checkbox" id="@inStockId" />
+                    <label class="filter-item-name" for="@inStockId">@Model.Name<span class="filter-item-count" for="@inStockId">(@Model.FilterCount)</span></label>
+                </li>
+            </ul>
+        }
+        else
+        {
+            <select class="attribute-options-select" id="inStockFiltersDropDown">
+                <option value="0">@T("Spikes.NopAjaxFilters.Client.Common.All")</option>
+                <option value="1" data-option-ids="@Model.Id">@Model.Name</option>
+            </select>
+        }
+    </div>
+</div>

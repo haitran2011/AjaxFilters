@@ -1,0 +1,45 @@
+﻿@using Nop.Web.Extensions
+
+@model ProductsModel
+
+@{
+    if (Model.ViewMode == "list")
+    {
+        @*list mode*@
+        <div class="@Model.NopAjaxFiltersSettingsModel.ProductsListPanelSelector.TrimStart(new[] {'.'}) nopSpikesAjaxFiltersGrid">
+            <div class="item-grid">
+                @foreach (var product in Model.Products)
+                {
+                    <div class="item-box">
+                        @await Html.PartialAsync("_ProductBox", product)
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        @*grid mode*@
+        <div class="@Model.NopAjaxFiltersSettingsModel.ProductsGridPanelSelector.TrimStart(new[] {'.'}) nopSpikesAjaxFiltersGrid">
+            <div class="item-grid">
+                @foreach (var product in Model.Products)
+                {
+                    <div class="item-box">
+                        @await Html.PartialAsync("_ProductBox", product)
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+
+    if (!pager.IsEmpty())
+    {
+        <div class="@Model.NopAjaxFiltersSettingsModel.PagerPanelSelector.TrimStart(new[] {'.'})">
+            <div>
+                @pager
+            </div>
+        </div>
+    }
+}
